@@ -1,9 +1,8 @@
-async function carregar() {
-  const maquinas = await fetch("http://localhost:3000/maquinas")
-    .then(r => r.json());
+const API = "https://SEU-BACKEND.onrender.com";
 
-  const chamados = await fetch("http://localhost:3000/chamados")
-    .then(r => r.json());
+async function carregar() {
+  const maquinas = await fetch(`${API}/maquinas`).then(r => r.json());
+  const chamados = await fetch(`${API}/chamados`).then(r => r.json());
 
   const cards = document.getElementById("cards");
   cards.innerHTML = "";
@@ -21,10 +20,10 @@ async function carregar() {
   const lista = document.getElementById("chamados");
   lista.innerHTML = "";
 
-  chamados.forEach(c => {
+  chamados.reverse().forEach(c => {
     lista.innerHTML += `
       <div class="alerta">
-        ⚠ ${c.mensagem}
+        ${c.mensagem} - ${c.data}
       </div>
     `;
   });
